@@ -12,7 +12,7 @@ Both apps have the **same** login form, search box, database schema and
 credentials. The only difference is how each builds its SQL — that is the whole
 point of the before/after demo.
 
-> ⚠️ **Run on localhost inside your VM only.** `vulnerable_app` is intentionally
+> ⚠️ **Run on localhost inside VM only.** `vulnerable_app` is intentionally
 > insecure and must never be exposed to a real network.
 
 ---
@@ -26,7 +26,7 @@ point of the before/after demo.
 - Optional, for the automated attack: **sqlmap** (preinstalled on Kali Linux)
 
 On Kali/Ubuntu the command is usually `python3` / `pip3`; on Windows it is
-`python` / `pip`. Use whichever your system has.
+`python` / `pip`. 
 
 ---
 
@@ -130,7 +130,7 @@ Each app's own `README.md` has the full playbook, the curl equivalents, and an
 explanation of why the secure version is immune.
 
 ### Boolean-blind note
-The search wraps your input as `LIKE '%<input>%'`, so blind payloads must end with
+The search wraps the input as `LIKE '%<input>%'`, so blind payloads must end with
 `-- ` to comment out the trailing `%'`. Extract a character like this:
 ```
 Laptop' AND substr((SELECT password FROM users WHERE username='admin'),1,1)='S' -- 
@@ -150,7 +150,7 @@ injectable** — that contrast is the automated-attack slide.
 
 ---
 
-## 6. The fix (one-line diff — your key slide)
+## 6. The fix (one-line diff)
 
 ```
 LOGIN
@@ -168,8 +168,7 @@ SEARCH
 
 Parameterized queries send the SQL text and the data to the driver on separate
 channels, so whatever the attacker types is treated as a literal value and can
-never change the structure of the query. That is the primary defence recommended
-in the report.
+never change the structure of the query. That is the primary defence recommended.
 
 ---
 
@@ -192,15 +191,3 @@ Assignment3/
     └── templates/
 ```
 
----
-
-## 8. Troubleshooting
-
-- **`ModuleNotFoundError: flask`** — dependencies not installed, or the venv is
-  not activated. Re-run the install step.
-- **`no such table: users`** — you skipped `python init_db.py` in that folder.
-- **"address already in use"** — an app is already running on that port; stop it
-  with Ctrl+C.
-- **`python` not found on Kali** — use `python3` and `pip3`.
-- **Attacks "don't work" on the vulnerable app** — confirm you are on `:5000`
-  (vulnerable), not `:5001` (secure), and that blind payloads end with `-- `.
