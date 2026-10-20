@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <title>Secure App — Search</title>
+  <style>
+    body { font-family: sans-serif; max-width: 720px; margin: 40px auto; }
+    input { padding:6px; width:320px; }
+    table { border-collapse: collapse; margin-top:12px; }
+    td, th { border:1px solid #ccc; padding:6px 12px; }
+    .err { color:#b00; }
+    pre { background:#f4f4f4; padding:10px; overflow-x:auto; }
+    .banner { background:#e8ffe8; border:1px solid #2a7; padding:8px; }
+  </style>
+</head>
+<body>
+  <p class="banner">SECURE version — parameterized queries. Same form, same DB.</p>
+  <p>Logged in as <b>{{ user }}</b> — <a href="{{ url_for('logout') }}">logout</a></p>
+  <h2>Product search</h2>
+  <form method="get">
+    <input name="q" value="{{ q }}" placeholder="search products...">
+    <button type="submit">Search</button>
+  </form>
+
+  {% if query %}<pre>{{ query }}</pre>{% endif %}
+  {% if error %}<p class="err">{{ error }}</p>{% endif %}
+
+  {% if results %}
+    <table>
+      <tr><th>Column 1</th><th>Column 2</th></tr>
+      {% for row in results %}
+        <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+</body>
+</html>

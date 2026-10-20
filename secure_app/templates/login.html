@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <title>Secure App — Login</title>
+  <style>
+    body { font-family: sans-serif; max-width: 640px; margin: 40px auto; }
+    input { display:block; margin:8px 0; padding:6px; width:260px; }
+    .err { color:#b00; }
+    pre { background:#f4f4f4; padding:10px; overflow-x:auto; }
+    .banner { background:#e8ffe8; border:1px solid #2a7; padding:8px; }
+  </style>
+</head>
+<body>
+  <p class="banner">SECURE version — parameterized queries. Same form, same DB.</p>
+  <h2>Login</h2>
+  <form method="post">
+    <input name="username" placeholder="username" autofocus>
+    <input name="password" type="password" placeholder="password">
+    <button type="submit">Log in</button>
+  </form>
+
+  {% if error %}<p class="err">{{ error }}</p>{% endif %}
+
+  {% if query %}
+    <p>Parameterized SQL that was executed (input bound separately):</p>
+    <pre>{{ query }}</pre>
+  {% endif %}
+</body>
+</html>
