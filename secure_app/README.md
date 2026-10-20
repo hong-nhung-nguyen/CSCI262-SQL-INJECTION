@@ -1,10 +1,9 @@
 # secure_app — CSCI262 A3 SQL Injection demo (PATCHED)
-Author: Harrel (secure_app + implementation section)
 
 This is the fixed counterpart to `../vulnerable_app`. Same login form, same
 search box, same database schema and credentials. The **only** change is that
 both SQL statements use **parameterized queries** instead of string
-concatenation — the primary defence the report recommends.
+concatenation - the primary defence the report recommends.
 
 ## Setup
 ```bash
@@ -14,7 +13,7 @@ python app.py          # http://127.0.0.1:5001   (vulnerable app is on :5000)
 ```
 Login: `admin` / `S3cr3tAdminPass!`
 
-## The one-line diff (this is your slide)
+## The one-line diff 
 ```
 LOGIN
   vulnerable:  query = "... WHERE username = '" + username + "' AND password = '" + password + "'"
@@ -44,8 +43,3 @@ separate channels, so the payload is compared as a literal string
 (`username = "' OR '1'='1' --"`) and matches nothing. The query structure the
 attacker tried to inject never becomes part of the executed statement.
 
-## Note for the report
-Parameterized queries remove the *injection* vector. The `Welcome, {username}`
-message reflects a value that came from the database, not raw user input, so it
-is not an injection sink; escaping it would be XSS hygiene, outside this fix's
-scope.

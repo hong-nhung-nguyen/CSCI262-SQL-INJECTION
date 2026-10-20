@@ -1,6 +1,6 @@
 # vulnerable_app — CSCI262 A3 SQL Injection demo (INSECURE on purpose)
 
-Run **only on localhost inside your VM.** This app is deliberately broken to
+Run **only on localhost inside VM.** This app is deliberately broken to
 demonstrate SQL injection; the companion `secure_app` patches the same two
 endpoints with parameterized queries.
 
@@ -18,7 +18,7 @@ Legit login (to show normal behaviour first): `admin` / `S3cr3tAdminPass!`
 - `app.py` → `search()` builds the product query by string concatenation.
 The page echoes the executed SQL and raw DB errors so the audience can *see* it.
 
-## Attack playbook (screenshot each step for the report)
+## Attack playbook
 
 ### 1. Authentication bypass
 In the login form:
